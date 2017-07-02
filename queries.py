@@ -10,7 +10,9 @@ import API
 
 
 k = API.API()
+k.load_key('kraken.key')
 
+###Public
 def get_pairs():
     '''Returns pairs'''
 
@@ -37,4 +39,9 @@ def get_orders(pair):
     return ob['result']
 
 
+###Private
+def get_balance():
+    return k.query_private('Balance')
     
+def get_history():
+    return k.query_private('TradesHistory')
