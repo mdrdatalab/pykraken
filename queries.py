@@ -48,10 +48,10 @@ def get_trades(pair, since):
 
 ###Private
 def get_balance():
-    return k.query_private('Balance')
+    return k.query_private('Balance')['result']
     
 def get_history():
     return k.query_private('TradesHistory')
     
 def get_ledger():
-    return k.query_private('Ledgers')
+    return k.query_private('Ledgers')['result']['ledger']
