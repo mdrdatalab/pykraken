@@ -6,10 +6,10 @@ Created on Sat Jul  1 14:16:38 2017
 """
 
 
-import API
+import api
 
 
-k = API.API()
+k = api.API()
 k.load_key('kraken.key')
 
 ###Public
@@ -37,6 +37,13 @@ def get_orders(pair):
     req = {'pair':pair}
     ob = k.query_public('Depth', req)
     return ob['result']
+    
+def get_trades(pair, since):
+    '''
+        Outputs: list of trades, last id for next
+    '''
+    
+    pass
 
 
 ###Private
@@ -45,3 +52,6 @@ def get_balance():
     
 def get_history():
     return k.query_private('TradesHistory')
+    
+def get_ledger():
+    return k.query_private('Ledgers')
