@@ -48,6 +48,7 @@ Temporary Items
 
 # Folders
 __pycache__
+data
 
 # Key files
 *.key

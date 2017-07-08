@@ -42,8 +42,9 @@ def get_trades(pair, since):
     '''
         Outputs: list of trades, last id for next
     '''
+    req = {'pair':pair, 'since':since}
+    return k.query_public('Trades', req)['result']
     
-    pass
 
 
 ###Private
