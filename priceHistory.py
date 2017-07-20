@@ -19,29 +19,30 @@ def get_history(asset):
     last = 0    
     trades = []
     #TODO: I don't like only having it in USD anymore... fix this?
-    usd = asset+'ZUSD'
+    pair = asset+'ZUSD'
     
     #TODO: first check if price history has been saved, load it if so       
-    if os.path.isfile('data\\'+usd+'-history.csv'):
-        history = hist_reader(usd)
+    if os.path.isfile('data\\'+pair+'-history.csv'):
+        history = hist_reader(pair)
         last = history['last']
         trades = history['trades']
     #why list doesn't come out flat?
-    if usd in pairs:
+    if pair in pairs:
         print('yes')
 
-        temp = {usd: ['x'], last: 0}
-        while temp[usd] != []:
+        temp = {pair: ['x'], last: 0}
+        while temp[pair] != []:
             try:
                 print(last)
-                temp = queries.get_trades(usd, last)
+                temp = queries.get_trades(pair, last)
                 last = temp['last']
-                trades.append(temp[usd])
-                time.sleep(2)
+                for t in temp[pair]:
+                    trades.append(t)
+                time.sleep(1)
             except Exception as e:
-                pass
+                print('Error: ', e)
     history = {'trades': trades, 'last': last}
-    hist_writer(usd, history)    
+    hist_writer(pair, history)    
     return history
     
 
@@ -100,3 +101,35 @@ def get_ohlc(pair, interval=1440, start=None, end=None):
     pass
     
     
+
+
+
+#asset or pair?
+def groupHist(pair):
+    #read history
+    #for each trade, extract datetime
+    #place in dict for year:month:date
+    #return dict
+    history = {}
+    #maybe do this through get_history so it updates?
+    trades = hist_reader(pair)['trades']
+    for trade in trades:
+        date = datetime.datetime.fromtimestamp(float(trade[2]))  #index of timestamp
+        year = date.year
+        month = date.month
+        day = date.day
+        if not year in history.keys():
+            history[year] = {}
+        if not month in history[year].keys():
+            history[year][month] = {}
+        if not day in history[year][month].keys():
+            history[year][month][day] = []
+        history[year][month][day].append(trade)
+    print('Done')
+    return history
+            
+        
+    
+    
+
+
