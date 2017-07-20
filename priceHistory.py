@@ -93,6 +93,10 @@ def get_ohlc(pair, interval=1440, start=None, end=None):
     retrieves trade history for a pair between start and end
     and returns ohlc data for that window at specified interval
     '''
+    # get trade data
+    # filter by window
+    # break down into interval
+    # iteratively retrieve ohlc per window
     pass
     
     
